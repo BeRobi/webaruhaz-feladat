@@ -1,6 +1,7 @@
 //import { kutyaLISTA, kutyaKULCS } from "./adat.js";
 import { kartyaOsszeallit, tablazatOsszeallit } from "./adatkezeles.js";
 import { thClick } from "./rendezesSzures.js";
+import { rendezBarmiSzerint } from "./rendezSzur.js";
 // Ami az inportáláshoz kell:
 // az index.html-ben a type="module" attributum használata
 // A importálandó függvény, vagy változó neve elé az export kuclsszó
@@ -34,6 +35,10 @@ function adatBeolvas(vegpont, callbackFv) {
 function init(data) {
   kutyaLISTA = data;
   console.log(kutyaLISTA)
+
+  //const SZURES = document.querySelector(".kor")
+  //SZURES.addEventListener("click", rendezBarmiSzerint);
+
   for (const kutya of kutyaLISTA) {
     kartyaOsszeallit(kutya, kartyak);
     tablazatOsszeallit(kutya, tablazatSection);
