@@ -1,6 +1,6 @@
 import { kutyaLISTA, kutyaKULCS } from "./adat.js";
-import { osszeallit1, osszeallit2 } from "./adatkezeles.js";
-import { rendezBarmiSzerint } from "./rendezesSzures.js";
+import { kartyaOsszeallit, tablazatOsszeallit } from "./adatkezeles.js";
+import { thClick, rendez } from "./rendezesSzures.js";
 // Ami az inportáláshoz kell:
 // az index.html-ben a type="module" attributum használata
 // A importálandó függvény, vagy változó neve elé az export kuclsszó
@@ -13,16 +13,17 @@ let tablazatSection = document.querySelector(".tablazat");
 let tabla = document.querySelector(".tabla");
 
 function init() {
+  
   for (const kutya of kutyaLISTA) {
-    osszeallit1(kutya, kartyak);
-    osszeallit2(kutya, tablazatSection);
+    kartyaOsszeallit(kutya, kartyak);
+    tablazatOsszeallit(kutya, tablazatSection);
   }
-
-  torlesFunkcio(kutyaLISTA);
 
   for (const th of document.querySelectorAll(".aria-sort")) {
     th.addEventListener("click", thClick);
   }
+
+  torlesFunkcio(kutyaLISTA);
 
   const SUBMIT = document.querySelector("#rogzites");
   SUBMIT.addEventListener("click", ujKutya);
@@ -73,113 +74,61 @@ function ujKutya() {
     kutyaLISTA.push(kutya);
   }
 
-  osszeallit1(kutya, kartyak);
-  osszeallit2(kutya, tabla);
+  kartyaOsszeallit(kutya, kartyak);
+  tablazatOsszeallit(kutya, tabla);
   torlesFunkcio(kutyaLISTA);
 
   console.log(kutyaLISTA);
 }
 
 function torlesFunkcio(lista) {
+  let TORLES = document.querySelectorAll(".gomb");
+  console.log(TORLES)
   for (let i = 0; i < lista.length; i++) {
     let kutya = lista[i];
-    let TORLES = document.querySelectorAll(".gomb")[i];
-    let TABLA = document.querySelectorAll(".kutyaTabla")[i];
-    let KARTYA = document.querySelectorAll(".kutyaKartya")[i];
+    // let TABLA = document.querySelectorAll(".kutyaTabla")[i];
+    // let KARTYA = document.querySelectorAll(".kutyaKartya")[i];
 
-    TORLES.addEventListener("click", () => {
-      //if (document.contains(TORLES)) {TABLA.remove(), KARTYA.remove()}
-      TABLA.parentElement.removeChild(TABLA);
-      KARTYA.parentElement.removeChild(KARTYA);
-      let index = lista.indexOf(kutya);
-      lista.splice(index, 1);
-
-      console.log(kutya);
-      //console.log(index);
-      //console.log(lista[i]);
-      console.log(lista);
-    });
+    TORLES[i].addEventListener("click", torlesClick);
   }
 }
 
-//rendezés by zschopper (thClick, rendez) - https://github.com/zschopper/js_kutya_kartya_tabla_form/blob/main/script.js
-
-function thClick(event) {
+function torlesClick(event) {
   let target = event.target;
-  let parent = target.parentNode;
-  // hányadik oszlopra kattintottunk (0-tól számolódik)
-  let idx = Array.prototype.indexOf.call(parent.children, target);
+  let td = target.parentElement;
+  let tr = td.parentElement;
+  console.log("tr", tr.parentElement)
 
-  // Csak "név", "kor" és a "nem" rendezhető.
-  // Ha másik oszlop küldte az eseményt, simán befejezzük a futást,
-  // nem változtatunk semmit.
+  var child = td
+  var parent = child.parentNode;
+  // The equivalent of parent.children.indexOf(child)
+  var idx = tr.rowIndex - 1
 
-  if (![0, 1, 2, 3, 4, 5].includes(idx)) {
-    return;
-  }
-  let sorted = document.querySelector("[aria-sort]");
+  console.log("idx", idx, kutyaLISTA[idx])
+  let kutya = kutyaLISTA[idx]
+  console.log(kutya);
+//       let  = target.parentElement.parentElement
 
-  if (sorted) {
-    if (sorted == target) {
-      if (sorted.ariaSort == "ascending") target.ariaSort = "descending";
-      else if (sorted.ariaSort == "descending") target.ariaSort = "ascending";
-    } else {
-      sorted.removeAttribute("aria-sort");
-      target.ariaSort = "ascending";
-    }
-  } else {
-    target.ariaSort = "ascending";
-  }
-  rendez();
-}
+  tr.remove();
 
-function rendez() {
-  // a táblázat törzsében lévő sorokat (tr) rendezzük, és adjuk újra hozzá
-  // rendezetten a tbody-hoz, ezzel rendezetts lesz a táblázat.
-  let tbody = document.querySelector(".tableBody");
-  let sorted = document.querySelector("[aria-sort]");
-  let sortCol = Array.prototype.indexOf.call(
-    sorted.parentNode.children,
-    sorted
-  );
-  let sortDir = sorted.ariaSort == "ascending" ? 1 : -1;
+    let kartya = document.querySelectorAll(".kutyaKartya")[idx];
+    kartya.remove()
 
-  // betesszük a tbody gyerekeit (a sorokat - tr elemek)) egy tömbbe
 
-  let rows = Array.from(tbody.childNodes);
+  // console.log("target", target)
+  
+  // console.log("target parent", tr)
+  //if (document.contains(TORLES)) {TABLA.remove(), KARTYA.remove()}
+  // console.log(">>", TABLA.parentElement, KARTYA.parentElement);
+  // TABLA.parentElement.removeChild(TABLA);
+  // KARTYA.parentElement.removeChild(KARTYA);
+  // let index = kutyaLISTA.indexOf(kutya);
+  
+  console.log(idx);
+  kutyaLISTA.splice(idx, 1);
 
-  // a rendezett elemeket újra a tbody-hoz adjuk, mivel egy elem nem lehet két helyen,
-  // ezzel eltávolítódik a régi, az újak viszont sorrendben lesznek
-
-  rows
-    .sort((r1, r2) => {
-      // v1 és v2 az összehasonlítandó cellák egyszerű szöveges tartalma (textContent)
-      let v1 = r1.childNodes[sortCol].textContent;
-      let v2 = r2.childNodes[sortCol].textContent;
-
-      switch (sortCol) {
-        case 0: // név - szövegként rendezzük
-          return v1.localeCompare(v2) * sortDir;
-        case 1: // fajta - szövegként rendezzük
-          return v1.localeCompare(v2) * sortDir;
-        case 2: // láb - számként rendezzük
-          return (parseInt(v1) - parseInt(v2)) * sortDir;
-        case 3: // magasság - számként rendezzük
-          return (parseInt(v1) - parseInt(v2)) * sortDir;
-        case 4: // nem - szövegként, de fordítottan rendezzük (szuka előre)
-          return v1.localeCompare(v2) * -1 * sortDir;
-        case 5: // kor - számként rendezzük
-          return (parseInt(v1) - parseInt(v2)) * sortDir;
-
-        default:
-          // mivel fent kezeljük, hogy csak az 1-3 oszlopokat rendezhetik,
-          // ezért ide elvileg nem futhat a vezérlés, de önvédelemként jó,
-          // ha nem hagyunk nyilvánvaló lyukat. Egy fv. MINDIG térjen vissza
-          // valami eredménnyel.
-          return 1;
-      }
-    })
-    .map((row) => {
-      tbody.appendChild(row);
-    });
+  console.log("kutya", kutya);
+  //console.log(index);
+  //console.log(kutyaLISTA[i]);
+  console.log("kutyalista", kutyaLISTA);
 }

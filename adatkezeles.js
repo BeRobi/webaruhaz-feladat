@@ -1,5 +1,5 @@
 let szamlalo = 0;
-export function osszeallit1(lista, hova) {
+export function kartyaOsszeallit(lista, hova) {
   let kartyakHelye;
   if (szamlalo == 0) kartyakHelye = elem_letrehozo(hova, "div", "container");
   if (hova) kartyakHelye = document.querySelector(".container");
@@ -12,7 +12,7 @@ export function osszeallit1(lista, hova) {
   }
 }
 
-export function osszeallit2(lista, hova) {
+export function tablazatOsszeallit(lista, hova) {
   let tablaElem = document.querySelector(".tabla");
   if (szamlalo == 0) {
     tablaElem = elem_letrehozo(hova, "table", "tabla");
