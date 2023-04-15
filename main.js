@@ -1,19 +1,39 @@
-import { kutyaLISTA, kutyaKULCS } from "./adat.js";
+//import { kutyaLISTA, kutyaKULCS } from "./adat.js";
 import { kartyaOsszeallit, tablazatOsszeallit } from "./adatkezeles.js";
-import { thClick, rendez } from "./rendezesSzures.js";
+import { thClick } from "./rendezesSzures.js";
 // Ami az inportáláshoz kell:
 // az index.html-ben a type="module" attributum használata
 // A importálandó függvény, vagy változó neve elé az export kuclsszó
 //majd ahova importáljuk, ott az alább látható módon.
 //Figyelj a .js kiterjesztésre!
-window.addEventListener("load", init);
+window.addEventListener("load", jsonAdatok);
 
 let kartyak = document.querySelector(".kartyak");
 let tablazatSection = document.querySelector(".tablazat");
 let tabla = document.querySelector(".tabla");
 
-function init() {
-  
+let kutyaLISTA = [];
+
+function jsonAdatok() {
+  let vegpont = "adat.json";
+  adatBeolvas(vegpont, init);
+ 
+}
+
+function adatBeolvas(vegpont, callbackFv) {
+  fetch(vegpont, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      callbackFv(data.adatLISTA);
+    })
+    .catch((err) => console.log(err));
+}
+
+function init(data) {
+  kutyaLISTA = data;
+  console.log(kutyaLISTA)
   for (const kutya of kutyaLISTA) {
     kartyaOsszeallit(kutya, kartyak);
     tablazatOsszeallit(kutya, tablazatSection);
@@ -83,7 +103,7 @@ function ujKutya() {
 
 function torlesFunkcio(lista) {
   let TORLES = document.querySelectorAll(".gomb");
-  console.log(TORLES)
+  console.log(TORLES);
   for (let i = 0; i < lista.length; i++) {
     let kutya = lista[i];
     // let TABLA = document.querySelectorAll(".kutyaTabla")[i];
@@ -97,33 +117,30 @@ function torlesClick(event) {
   let target = event.target;
   let td = target.parentElement;
   let tr = td.parentElement;
-  console.log("tr", tr.parentElement)
+  console.log("tr", tr.parentElement);
 
-  var child = td
-  var parent = child.parentNode;
-  // The equivalent of parent.children.indexOf(child)
-  var idx = tr.rowIndex - 1
+  var child = td;
+  var idx = tr.rowIndex - 1;
 
-  console.log("idx", idx, kutyaLISTA[idx])
-  let kutya = kutyaLISTA[idx]
+  console.log("idx", idx, kutyaLISTA[idx]);
+  let kutya = kutyaLISTA[idx];
   console.log(kutya);
-//       let  = target.parentElement.parentElement
+  // let  = target.parentElement.parentElement
 
   tr.remove();
 
-    let kartya = document.querySelectorAll(".kutyaKartya")[idx];
-    kartya.remove()
-
+  let kartya = document.querySelectorAll(".kutyaKartya")[idx];
+  kartya.remove();
 
   // console.log("target", target)
-  
+
   // console.log("target parent", tr)
   //if (document.contains(TORLES)) {TABLA.remove(), KARTYA.remove()}
   // console.log(">>", TABLA.parentElement, KARTYA.parentElement);
   // TABLA.parentElement.removeChild(TABLA);
   // KARTYA.parentElement.removeChild(KARTYA);
   // let index = kutyaLISTA.indexOf(kutya);
-  
+
   console.log(idx);
   kutyaLISTA.splice(idx, 1);
 

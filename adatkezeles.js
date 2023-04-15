@@ -1,6 +1,7 @@
 let szamlalo = 0;
 export function kartyaOsszeallit(lista, hova) {
   let kartyakHelye;
+  //hova.innerHTML=""
   if (szamlalo == 0) kartyakHelye = elem_letrehozo(hova, "div", "container");
   if (hova) kartyakHelye = document.querySelector(".container");
   const KARTYA = elem_letrehozo(kartyakHelye, "div", "kutyaKartya");
