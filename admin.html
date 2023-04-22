@@ -4,11 +4,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="admin.js" type="module"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
     <title>Bathelt Róbert</title>
   </head>
   <body>
@@ -16,88 +25,132 @@
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <h2 class="navbar-brand">Kutyák</h2>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.html">Kutya kártyák</a>
+                <a class="nav-link active" aria-current="page" href="index.html"
+                  >Kártyák</a
+                >
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="admin.html">Admin oldal</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" target="_blank" href="https://github.com/BeRobi/webaruhaz-feladat">github</a>
+                <a
+                  class="nav-link"
+                  target="_blank"
+                  href="https://github.com/BeRobi/webaruhaz-feladat"
+                  >github</a
+                >
               </li>
             </ul>
           </div>
         </div>
       </nav>
       <aside>
-        <form action="javascript:void(0)">
-          <fieldset>
-            <legend>Új Kutya</legend>
-            <div>
-              <label class="form-label" for="kneve">Kutya neve:</label>
-              <input
-              class="form-control"
-                type="text"
-                id="kneve"
-                name="kneve"
-                required
-                pattern="^[A-Z][a-zA-Z]{2,}$"
-              /><span id="nevhiba"></span>
+        <fieldset style="margin: 5rem">
+          <form action="javascript:void(0)">
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label class="form-label" for="kneve">Kutya neve:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="kneve"
+                  placeholder="Kutya neve"
+                  required
+                  pattern="^[A-Z][a-zA-Z]{2,}$"
+                /><span id="nevhiba"></span>
+              </div>
+              <div class="form-group col-md-6">
+                <label class="form-label" for="kkor">Kutya fajtája:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="kfajta"
+                  placeholder="Kutya fajtája"
+                />
+              </div>
             </div>
-            <label class="form-label" for="kkor">Kutya kora:</label>
-            <input
-            class="form-control"
-              type="number"
-              id="kkor"
-              name="kkor"
-              min="0"
-              max="22"
-              value="4"
-            /><br /><br />
 
-            <label class="form-label" for="kfajta">Kutya fajtája:</label>
-            <input class="form-control" type="text" id="kfajta" name="kfajta" /><br /><br />
-            <label for="klaba">Kutya lábainak száma:</label>
-            <input
-            class="form-control"
-              type="number"
-              min="0"
-              max="6"
-              value="4"
-              id="klaba"
-              name="klaba"
-            /><br /><br />
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label class="form-label">Kutya lábainak száma:</label>
+                <select class="form-control" id="klaba">
+                  <option>4</option>
+                  <option>3</option>
+                  <option>2</option>
+                  <option>1</option>
+                  <option>nincs lába</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label class="form-label">Kutya marmagassága:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="mmag"
+                  placeholder="Kutya marmagassága"
+                />
+              </div>
+            </div>
 
-            <fieldset>
-              <legend>Kutya neme:</legend>
-              <input class="form-check-input"  type="radio" id="szuka" name="nem" value="szuka" checked />
-              <label class="form-label" for="szuka">szuka</label>
-              <input class="form-check-input" type="radio" id="kan" name="nem" value="kan" />
-              <label for="kan">kan</label><br />
-            </fieldset>
-
-            <label class="form-label" for="mmag">Kutya marmagasság:</label>
-            <input
-            class="form-control"
-              type="number"
-              id="mmag"
-              name="mmag"
-              min="10"
-              max="160"
-              value="50"
-            /><span>cm</span> <br /><br />
-            <input class="form-control" type="submit" value="Rögzítés" id="rogzites" /><br />
-          </fieldset>
-        </form>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label class="form-label">Kutya kora:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="kkor"
+                  placeholder="Kutya kora"
+                />
+              </div>
+              <div class="form-group col-md-6">
+              <label class="form-label">Kutya neme:</label>
+              <div>
+                <input
+                  class="form-group col-md-1"
+                  type="radio"
+                  name="nem"
+                  id="szuka"
+                  value="szuka"
+                  checked
+                />
+                <label class="form-check-label" for="inlineRadio1">szuka</label>
+              </div>
+              <div>
+                <input
+                  class="form-group col-md-1"
+                  type="radio"
+                  name="nem"
+                  id="kan"
+                  value="kan"
+                />
+                <label class="form-check-label" for="inlineRadio2">kan</label>
+              </div>
+            </div>
+          </div>
+            <div class="row">
+              <button type="submit" class="btn btn-primary" id="rogzites">
+                Rögzítés
+              </button>
+            </div>
+          </form>
+        </fieldset>
       </aside>
       <article>
-        <section class="kartyak">
-        </section>
+        <section class="kartyak"></section>
         <section class="tablazat"></section>
       </article>
     </main>

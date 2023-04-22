@@ -52,9 +52,9 @@ export const kutyaLISTA = [
   export const kutyaKULCS={
    
     nev: "Név",
-    kor: "Kor",
     fajta: "Fajta",
     lab: "Láb",
+    marmagassag: "Marmagasság",
     nem: "Ivar",
-    marmagassag: "Marmagasság"
+    kor: "Kor"
 }
